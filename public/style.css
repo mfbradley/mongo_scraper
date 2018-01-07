@@ -1,0 +1,15 @@
+.jumbotron {
+    text-align: center;
+}
+
+.card-body {
+    color: black;
+    opacity: .9;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.nav {
+    opacity: .9;
+    padding: 10px;
+}

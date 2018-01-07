@@ -4,20 +4,64 @@
 <head>
     <meta charset="UTC-8">
     <title>Mongo Scraper</title>
-    <link rel="stylesheet" href="style.css" type="text/css" />>
+
+
+    <!--Bootstrap Link-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="style.css" type="text/css" />
+
 </head>
 
 <body>
-    <div id="wrapper">
-        <h1>Note Scraper</h1>
-        <h2><i>If you can do this...the homework should be no problem.</i></h2>
+    <div id="container">
+        <ul class="nav">
+            <li class="nav-item">
+                <a class="navbar-brand" href="#">Mongo Scraper</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Saved Articles</a>
+            </li>
+            <li class="nav-item">
+                <button class="btn btn-secondary" type="submit">Scrape for New Articles</button>
+            </li>
+        </ul>
+
+
+        <div class="jumbotron jumbotron-fluid">
+            <div class="container">
+                <h1 class="display-4">Mongo Scraper</h1>
+                <p class="lead">blah blah blah</p>
+            </div>
+        </div>
         <div id="articles"></div>
         <div id="notes"></div>
+    </div>
+    <div class="container-fluid">
+        <div class="card text-white bg-info mb-3">
+            <div class="card-header">
+                <h3>Article Title</h3>
+            </div>
+
+            <div class="card-body bg-light mb-3">
+                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                <a href="#" class="btn btn-secondary">Save Article</a>
+
+            </div>
+        </div>
     </div>
 
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="app.js"></script>
+
+    <!--Bootstrap Scripts-->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js" integrity="sha384-a5N7Y/aK3qNeh15eJKGWxsqtnX/wWdSZSKp+81YjTmS15nvnvxKHuzaWwXHDli+4" crossorigin="anonymous"></script>
 </body>
 
 </html>
