@@ -20,10 +20,10 @@
                 <a class="navbar-brand" href="#">Mongo Scraper</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Home</a>
+                <a class="nav-link" href="index.html">Home</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link savedArticlesPage" href="savedArticles.html">Saved Articles</a>
+                <a class="nav-link" href="#">Saved Articles</a>
             </li>
             <li class="nav-item">
                 <button id="scraperButton" class="btn btn-secondary" type="submit">Scrape for New Articles</button>
@@ -34,13 +34,13 @@
         <div class="jumbotron jumbotron-fluid">
             <div class="container">
                 <h1 class="display-4">Mongo Scraper</h1>
-                <p class="lead">TIME Edition</p>
+                <p class="lead">Saved Articles</p>
             </div>
         </div>
     </div>
 
 
-    <div id="articleDiv" class="container-fluid">
+    <div id="savedArticlesDiv" class="container-fluid">
 
     </div>
 
@@ -54,6 +54,25 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="app.js"></script>
+    <script>
+        $.getJSON("/articles/saved", function(data) {
+            // For each one
+            for (var i = 0; i < data.length; i++) {
+                // Display the apropos information on the page
+                $("#savedArticlesDiv").append(
+                    "<div class='card text-white bg-info mb-3'><div class='card-header'>" +
+                    "<h3 class='title' data-id='" + data[i]._id +
+                    "' href='" + data[i].link + "'>" +
+                    data[i].title + "</h3>" +
+                    "<br />" +
+                    "<div class='card-body bg-light mb-3'>" +
+                    "<p class='card-text'>" + data[i].summary +
+                    "</p>" +
+                    '<button href="#" class="btn btn-secondary saveArticle">Delete</button></div></div>'
+                );
+            }
+        });
+    </script>
 </body>
 
 </html>

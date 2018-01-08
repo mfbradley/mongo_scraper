@@ -39,6 +39,29 @@ app.get("/articles", function(req, res) {
     });
 });
 
+app.get("/articles/saved/", function(req, res) {
+    db.Article.find({ "saved": true }, function(error, found) {
+        if (error) {
+            console.log(error);
+        }
+        else {
+            res.json(found);
+        }
+    });
+});
+
+app.post("/articles/saved/:id", function(req, res) {
+    db.Article.findOneAndUpdate({ "_id": req.params.id }, { "saved": true }, function(error, found) {
+        if (error) {
+            console.log(error);
+        }
+        else {
+            res.json(found);
+        }
+    });
+});
+
+
 // A GET route for scraping the echojs website
 app.get("/scrape", function(req, res) {
     // First, we grab the body of the html with request
