@@ -2,12 +2,11 @@
 
 $.getJSON("/articles", function(data) {
     // For each one
-    for (var i = 0; i < data.length; i++) {
+    for (let i = 0; i < data.length; i++) {
         // Display the apropos information on the page
         $("#articleDiv").append(
             "<div class='card text-white bg-info mb-3'><div class='card-header'>" +
-            "<h3 class='title' href='" + data[i].link + "'>" +
-            data[i].title + "</h3>" +
+            "<h3 class='title'>" + data[i].title + "</h3>" + "<p class='link' href='" + data[i].link + "'>Link: " + data[i].link + "</p>" +
             "<br />" +
             "<div class='card-body bg-light mb-3'>" +
             "<p class='card-text'>" + data[i].summary +
@@ -17,13 +16,28 @@ $.getJSON("/articles", function(data) {
     }
 });
 
-$(document).on("click", "scraperButton", function() {
-    alert("Scraped!");
+$(document).on("click", "button.scraperButton", function() {
 
     $.ajax({
-        method: "GET",
-        url: "/scrape"
-    });
+            method: "GET",
+            url: "/scrape"
+        })
+        .done(function(data) {
+            window.location.reload();
+            for (let i = 0; i < data.length; i++) {
+                // Display the apropos information on the page
+                $("#articleDiv").append(
+                    "<div class='card text-white bg-info mb-3'><div class='card-header'>" +
+                    "<h3 class='title' href='" + data[i].link + "'>" +
+                    data[i].title + "</h3>" +
+                    "<br />" +
+                    "<div class='card-body bg-light mb-3'>" +
+                    "<p class='card-text'>" + data[i].summary +
+                    "</p>" +
+                    '<button href="#" class="btn btn-secondary saveArticle" data-id="' + data[i]._id + '">Save Article</button></div></div>'
+                );
+            }
+        });
 });
 
 
