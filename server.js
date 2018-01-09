@@ -1,17 +1,19 @@
-var express = require("express");
-var bodyParser = require("body-parser");
-var logger = require("morgan");
-var request = require("request");
-var mongoose = require("mongoose");
+const express = require("express");
+const bodyParser = require("body-parser");
+const logger = require("morgan");
+const request = require("request");
+const mongoose = require("mongoose");
 
 // var axios = require("axios");
-var cheerio = require("cheerio");
+const cheerio = require("cheerio");
 
-var db = require("./models");
+const db = require("./models");
 
-var PORT = 8080;
+const PORT = process.env.PORT || 8080;
 
-var app = express();
+const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongo";
+
+const app = express();
 
 
 // Configure middleware
@@ -24,7 +26,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static("public"));
 
 mongoose.Promise = Promise;
-mongoose.connect("mongodb://localHost/mongo");
+mongoose.connect("mongodb://heroku_w6qvnk2m:r8tjupfb0frbqlh7hg311tm0an@ds141657.mlab.com:41657/heroku_w6qvnk2m");
 
 // Route for getting all Articles from the db
 app.get("/articles", function(req, res) {
@@ -39,8 +41,8 @@ app.get("/articles", function(req, res) {
     });
 });
 
-// A GET route for scraping the echojs website
-app.get("/scrape", function(req, res) {
+// A GET route for scraping the time website
+app.get("/scrape", (req, res) => {
     console.log("scraped");
     // First, we grab the body of the html with request
     request("http://time.com/", function(error, response, html) {
