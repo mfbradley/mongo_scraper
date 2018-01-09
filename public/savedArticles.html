@@ -49,18 +49,22 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle"></h5>
+                    <h2 class="modal-title" id="exampleModalLongTitle"></h2>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
                 </div>
                 <div id="notesDiv" class="modal-body">
-                    <input class="text titleInput" placeholder="title"></input>
-                    <input class="text bodyInput" placeholder="note"></input>
+                    <div class="row title">
+
+                    </div>
+                    <div class="row body">
+
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" data-id=" + data._id + " class="btn btn-secondary saveNote">Save Note</button>
+
                 </div>
             </div>
         </div>
@@ -94,44 +98,11 @@
                     '<button type="button" data-id="' + data[i]._id +
                     '" class="btn btn-secondary articleNotes" data-toggle="modal" data-target="#exampleModalCenter">Article Notes</button><vr> ' +
                     '<button href="#" data-id="' + data[i]._id +
-                    '" class="btn btn-secondary deleteArticle">Delete from Saved</button></div></div>'
+                    '" class="btn btn-secondary deleteSave">Delete from Saved</button></div></div>'
                 );
             }
         });
 
-        // When you click the savenote button
-        $(document).on("click", "button.saveNote", function() {
-            // Grab the id associated with the article from the submit button
-            var id = $(this).attr("data-id");
-            var noteTitle = $(".titleInput").val();
-            var noteBody = $(".bodyInput").val();
-
-            console.log(id, noteTitle, noteBody);
-            // Run a POST request to change the note, using what's entered in the inputs
-            $.ajax({
-                    method: "POST",
-                    url: "/articles/" + id,
-                    data: {
-                        // Value taken from title input
-                        title: noteTitle,
-                        // Value taken from note textarea
-                        body: noteBody
-                    }
-                })
-                // With that done
-                .done(function(data) {
-                    // Log the response
-                    console.log(data);
-                    // Empty the notes section
-                    $("#notesDiv").empty();
-                });
-
-            // Also, remove the values entered in the input and textarea for note entry
-            // $("#titleinput").val("");
-            // $("#bodyinput").val("");
-        });
-
-        // / Whenever someone clicks a p tag
         $(document).on("click", "button.articleNotes", function() {
             // Save the id from the button tag
             var thisId = $(this).attr("data-id");
@@ -145,13 +116,13 @@
                 .done(function(data) {
                     console.log(data);
                     // The title of the article
-                    $("#notes").append("<h2>" + data[0].title + "</h2>");
+                    $(".modal-title").append("<h2>" + data[0].title + "</h2>");
                     // An input to enter a new title
-                    $("#notes").append("<input id='titleinput' name='title' >");
+                    $(".title").append("<input id='titleinput' name='title' >");
                     // A textarea to add a new note body
-                    $("#notesDiv").append("<textarea id='bodyinput' name='body'></textarea>");
+                    $(".body").append("<textarea id='bodyinput' name='body'></textarea>");
                     // A button to submit a new note, with the id of the article saved to it
-                    $("#notesDiv").append("<button data-id='" + data[0]._id + "' id='savenote'>Save Note</button>");
+                    $(".modal-footer").append("<button type='button' class='btn btn-secondary saveNote' data-id='" + data[0]._id + "' data-dismiss='modal'>Save Note</button>");
 
                     // If there's a note in the article
                     if (data[0].notes) {
@@ -162,6 +133,47 @@
                     }
                 });
         });
+
+        // When you click the savenote button
+        $(document).on("click", "button.saveNote", function() {
+            // Grab the id associated with the article from the submit button
+            var id = $(this).attr("data-id");
+            // window.location.reload();
+
+            $.ajax({
+                    method: "POST",
+                    url: "/articles/" + id,
+                    data: {
+                        // Value taken from title input
+                        title: $("#titleinput").val(),
+                        // Value taken from note textarea
+                        body: $("#bodyinput").val()
+                    }
+                })
+                // With that done
+                .done(function(data) {
+                    // Log the response
+                    console.log(data);
+                });
+        });
+
+
+        $(document).on("click", "button.deleteSave", function() {
+            var id = $(this).attr("data-id");
+            console.log(id);
+            window.location.reload();
+
+            $.ajax({
+                    method: "PUT",
+                    url: "articles/deleted/" + id,
+                    data: {
+                        saved: false
+                    }
+                })
+                .done(function(data) {
+                    console.log(data);
+                })
+        })
     </script>
 </body>
 

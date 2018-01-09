@@ -99,6 +99,18 @@ app.post("/articles/saved/:id", function(req, res) {
 });
 
 
+app.put("/articles/deleted/:id", function(req, res) {
+    db.Article.findOneAndUpdate({ "_id": req.params.id }, { "saved": false }, function(error, found) {
+        if (error) {
+            console.log(error);
+        }
+        else {
+            res.json(found);
+        }
+    });
+});
+
+
 app.get("/articles/:id", function(req, res) {
     db.Article.find({ "_id": req.params.id })
         .populate("notes").then(function(dataReturned) {
@@ -123,7 +135,6 @@ app.post("/articles/:id", function(req, res) {
 
     res.send("Done!");
 });
-
 
 // Start the server
 app.listen(PORT, function() {
