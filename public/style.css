@@ -14,6 +14,14 @@
     padding: 10px;
 }
 
-.noteTitle {
-    padding: 20px;
+.noteTitle, 
+.noteBody {
+    text-align: center;
+    padding: 10px;
+    margin-left: 10px;
+    
+}
+
+#savedNotes {
+    margin-left: 20px;
 }
