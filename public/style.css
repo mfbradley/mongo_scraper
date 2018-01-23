@@ -1,3 +1,5 @@
+
+
 .jumbotron {
     text-align: center;
 }
@@ -24,4 +26,8 @@
 
 #savedNotes {
     margin-left: 20px;
+}
+
+#bodyinput {
+    width: 94%;
 }
