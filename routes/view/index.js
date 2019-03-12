@@ -136,3 +136,5 @@ router.post("/articles/:id", function(req, res) {
 
     res.send("Done!");
 });
+
+module.exports = router;
