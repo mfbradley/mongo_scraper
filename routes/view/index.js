@@ -5,16 +5,13 @@ const router = require("express").Router();
 
 
 // Route for getting all Articles from the db
-router.get("/articles", function(req, res) {
+router.get("/", function(req, res) {
     //Grabs all of the articles using .find()
     db.Article.find({}, function(error, found) {
         if (error) {
             console.log(error);
         }
-        else {
-            res.json(found);
-        }
-    }).then(dbArticles, function(req, res) {
+    }).then(function(dbArticles) {
         res.render("home", {articles: dbArticles})
     });
 });
@@ -70,9 +67,6 @@ router.get("/articles/saved/", function(req, res) {
     db.Article.find({ "saved": true }, function(error, found) {
         if (error) {
             console.log(error);
-        }
-        else {
-            res.json(found);
         }
     }).then(function(dbArticles) {
         res.render("saved", {articles: dbArticles})

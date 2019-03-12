@@ -1,20 +1,3 @@
-// Grab the articles as a json
-$.getJSON("/articles", function(data) {
-    // For each one
-    for (let i = 0; i < data.length; i++) {
-        // Display the apropos information on the page
-        $("#articleDiv").append(
-            "<div class='card text-white bg-info mb-3'><div class='card-header'>" +
-            "<h3 class='title'>" + data[i].title + "</h3>" + "<p class='link' href='" + data[i].link + "'>Link: " + data[i].link + "</p>" +
-            "<br />" +
-            "<div class='card-body bg-light mb-3'>" +
-            "<p class='card-text'>" + data[i].summary +
-            "</p>" +
-            '<button href="#" class="btn btn-secondary saveArticle" data-id="' + data[i]._id + '">Save Article</button></div></div>'
-        );
-    }
-});
-
 // click handler for 'Scrape New Articles' button
 // get /scrape route and displaly all articles found
 // reload page to update
