@@ -1,10 +1,11 @@
 const cheerio = require("cheerio");
 const db = require("../../models");
 const request = require("request");
+const router = require("express").Router();
 
 
 // Route for getting all Articles from the db
-app.get("/articles", function(req, res) {
+router.get("/articles", function(req, res) {
     //Grabs all of the articles using .find()
     db.Article.find({}, function(error, found) {
         if (error) {
@@ -19,7 +20,7 @@ app.get("/articles", function(req, res) {
 });
 
 // A GET route for scraping the TIME website
-app.get("/scrape", (req, res) => {
+router.get("/scrape", (req, res) => {
     console.log("scraped");
     
     // First, grab the body of the html with request
@@ -63,7 +64,7 @@ app.get("/scrape", (req, res) => {
 
 
 // route to get saved articles
-app.get("/articles/saved/", function(req, res) {
+router.get("/articles/saved/", function(req, res) {
     
     // used .find() to get articles with a saved: true attribute
     db.Article.find({ "saved": true }, function(error, found) {
@@ -79,7 +80,7 @@ app.get("/articles/saved/", function(req, res) {
 });
 
 // route to update saved article attributes
-app.post("/articles/saved/:id", function(req, res) {
+router.post("/articles/saved/:id", function(req, res) {
     
     // find and update by id of article that was saved
     // updated "saved" to true
@@ -97,7 +98,7 @@ app.post("/articles/saved/:id", function(req, res) {
 // route to delete articles from 'Saved Articles' page
 // find and delete by id of article that was clicked
 // updated "saved" attribute to false
-app.put("/articles/deleted/:id", function(req, res) {
+router.put("/articles/deleted/:id", function(req, res) {
     db.Article.findOneAndUpdate({ "_id": req.params.id }, { "saved": false }, function(error, found) {
         if (error) {
             console.log(error);
@@ -111,7 +112,7 @@ app.put("/articles/deleted/:id", function(req, res) {
 
 // add notes to an article
 // populate 'notes' attribute in Article.js with Note.js
-app.get("/articles/:id", function(req, res) {
+router.get("/articles/:id", function(req, res) {
     db.Article.find({ "_id": req.params.id })
         .populate("notes").then(function(dataReturned) {
             res.json(dataReturned);
@@ -122,7 +123,7 @@ app.get("/articles/:id", function(req, res) {
 });
 
 // Route for saving/updating an Article's associated Note
-app.post("/articles/:id", function(req, res) {
+router.post("/articles/:id", function(req, res) {
     // TODO
     // ====
     // save the new note that gets posted to the Notes collection

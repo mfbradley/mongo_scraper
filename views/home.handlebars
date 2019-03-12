@@ -28,5 +28,17 @@
 
 <!-- Empty article div to scrape articles into -->
 <div id="articleDiv" class="container-fluid">
-
+    {{#each articles}}
+    <div class='card text-white bg-info mb-3'>
+        <div class='card-header'>
+            <h3 class='title' href={{this.link}}>{{this.title}}</h3>
+            <br />
+            <div class='card-body bg-light mb-3'>
+                <p class='card-text'>{{this.summary}}
+                </p>
+                <button href="#" class="btn btn-secondary saveArticle" data-id={{this._id}}>Save Article</button>
+            </div>
+        </div>
+    </div>
+    {{/each}}
 </div>
