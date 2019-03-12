@@ -12,6 +12,8 @@ const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongo";
 
 const app = express();
 
+const routes = require("./routes");
+app.use(routes);
 
 // Configure middleware
 /* global Promise */
