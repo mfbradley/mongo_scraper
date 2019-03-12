@@ -2,6 +2,7 @@ const cheerio = require("cheerio");
 const db = require("../../models");
 const request = require("request");
 
+
 // Route for getting all Articles from the db
 app.get("/articles", function(req, res) {
     //Grabs all of the articles using .find()
@@ -12,6 +13,8 @@ app.get("/articles", function(req, res) {
         else {
             res.json(found);
         }
+    }).then(dbArticles, function(req, res) {
+        res.render("home", {articles: dbArticles})
     });
 });
 
@@ -70,6 +73,8 @@ app.get("/articles/saved/", function(req, res) {
         else {
             res.json(found);
         }
+    }).then(function(dbArticles) {
+        res.render("saved", {articles: dbArticles})
     });
 });
 
